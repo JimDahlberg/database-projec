@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Categories{% endblock %}
+{% block main %}
+
+<div class="d-flex flex-row justify-content-center mt-4">
+  <div class="w-75">
+    <h1 class="text-center">Kundvagn</h1>
+    <div id="cartView">
+{% if cart %}
+        <table class="table border mb-4">
+            <thead>
+                <tr>
+                    <th scope="col" class="border-bottom-0">Tillverkare</th>
+                    <th scope="col" class="border-bottom-0">Namn</th>
+                    <th scope="col" class="border-bottom-0">Storlek</th>
+                    <th scope="col" class="border-bottom-0">Pris</th>
+                    <th scope="col" class="border-bottom-0">Färg</th>
+                    <th scope="col" class="border-bottom-0">Antal</th>
+                    <th scope="col" class="border-bottom-0"></th>
+                </tr>
+            </thead>
+            <tbody>
+{% for item in cart %}
+              <tr class="bg-light">
+                <td>{{ item.brand }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.size }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.color }}</td>
+                  {{ item.count }}
+                  <button class="cartButtons" onclick="minusProduct('1')" type="button" name="button"> <i class="fas fa-minus"></i></button>
+                </td>
+                  <button class="cartButtons" onclick="plusProduct('1')" type="button" name="button"> <i class="fas fa-plus"></i></button>
+                <th scope="row"><a href="{{ item.url }}">Mer information</a></th>
+                <td>
+                  <button class="removeButton" onclick="removeFromCart('1')" type="button" name="button"> <i class="fas fa-times"></i> </button>
+                </td>
+              </tr>
+{% endfor %}
+            </tbody>
+        </table>
+
+        <button class="btn btn-danger w-10 mb-4" onclick=removeAllFromCart() type="button" name="button">Töm kundvagn</button>
+        <table class="table w-25 border border-top-0">
+          <thead>
+              <tr class="text-center font-weight-bold">
+                  <th colspan="2">Beställningsinformation</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <th>Antal Produkter:</th>
+                  <td>13</td>
+              </tr>
+              <tr>
+                  <th>Summa:</th>
+                  <td>3116 kr</td>
+              </tr>
+          </tbody>
+        </table>
+
+        <a href="incheckout"><button type="button" class="btn btn-primary w-10">Gå till kassan</button></a>
+
+{% else %}
+      <p>Din kundvagn innehåller för tillfället inga produkter.</p>
+{% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

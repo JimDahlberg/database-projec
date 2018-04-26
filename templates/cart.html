@@ -27,12 +27,13 @@
                 <td>{{ item.size }}</td>
                 <td>{{ item.price }}</td>
                 <td>{{ item.color }}</td>
-                <td>{{ item.count }}
-                  <button class="cartButtons" onclick="minusProduct('1')" type="button" name="button"> <i class="fas fa-minus"></i></button>
-                  <button class="cartButtons" onclick="plusProduct('1')" type="button" name="button"> <i class="fas fa-plus"></i></button>
+                <td>
+                  <button class="cartButtons" onclick="removeFromCart({{ item.id }})" type="button" name="button"> <i class="fas fa-minus"></i></button>
+                  <span id="item_count_{{item.id}}">{{ 1 if item.count != None else item.count }}</span>
+                  <button class="cartButtons" onclick="addToCart({{ item.id }})" type="button" name="button"> <i class="fas fa-plus"></i></button>
                 </td>
                 <td>
-                  <button class="removeButton" onclick="removeFromCart({{ item.id }})" type="button" name="button"> <i class="fas fa-times">Remove</i> </button>
+                  <button class="removeButton" onclick="removeAllFromCart({{ item.id }})" type="button" name="button"> <i class="fas fa-times">Remove</i> </button>
                 </td>
               </tr>
 {% endfor %}
@@ -48,7 +49,7 @@
           <tbody>
               <tr>
                   <th>Antal Produkter:</th>
-                  <td>{{ cart|length }}</td>
+                  <td class="cart_size">{{ cart|length }}</td>
               </tr>
               <tr>
                   <th>Summa:</th>
@@ -75,7 +76,7 @@
             <p class='cf-desc'></p><p class='buttonbar'>
               <span>
                 <input id='form-element-submit' type='submit' class='btn btn-lg btn-primary w-10' name='submit' value='Beställ' />
-                <button class="btn btn-danger btn-lg w-10 " onclick=removeAllFromCart() type="button" name="button">Töm kundvagn</button>
+                <button class="btn btn-danger btn-lg w-10 " onclick=emptyCart() type="button" name="button">Töm kundvagn</button>
               </span>&nbsp;
             {#</p><p class='buttonbar'>
               <span>#}

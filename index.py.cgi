@@ -73,6 +73,7 @@ def subcategories(limits, gender, category):
 
 def cart():
     from os import environ
+    cart = []
     try:
         if 'HTTP_COOKIE' in environ:
             for cookie in [x.strip() for x in environ['HTTP_COOKIE'].split(';')]:
@@ -80,9 +81,6 @@ def cart():
                 if key == "cart":
                     value = map(int, value.strip("[]").split("%2C"))
                     cart = get_products_ids(value)
-                else:
-                    cart = []
-
         template = env.get_template('cart.html')
         print template.render(title='BestBuy (cart)', cart=cart, price=23)
         """print template.render(title='BestBuy (cart)', cart=[

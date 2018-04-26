@@ -19,11 +19,11 @@
 {% for item in products %}
   <tr >
       <td>{{ item.brand }}</td>
-      <td>{{ item.name }}</td>
+      <td>{{ item.type }} {{ item.subtype }}</td>
       <td>{{ item.size }}</td>
       <td>{{ item.price }}</td>
       <td>{{ item.color }}</td>
-      <th scope="row"><a href="{{ item.url }}">Mer information</a></th>
+      <th scope="row"><button type="button" onclick="addToCart({{ item.id }})">Köp</button></th>
   </tr>
 {% endfor %}
     </tbody>

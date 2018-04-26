@@ -21,26 +21,24 @@
             </thead>
             <tbody>
 {% for item in cart %}
-              <tr class="bg-light">
+              <tr class="bg-light" id="item_{{ item.id }}">
                 <td>{{ item.brand }}</td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.size }}</td>
                 <td>{{ item.price }}</td>
                 <td>{{ item.color }}</td>
-                  {{ item.count }}
+                <td>{{ item.count }}
                   <button class="cartButtons" onclick="minusProduct('1')" type="button" name="button"> <i class="fas fa-minus"></i></button>
-                </td>
                   <button class="cartButtons" onclick="plusProduct('1')" type="button" name="button"> <i class="fas fa-plus"></i></button>
-                <th scope="row"><a href="{{ item.url }}">Mer information</a></th>
+                </td>
                 <td>
-                  <button class="removeButton" onclick="removeFromCart('1')" type="button" name="button"> <i class="fas fa-times"></i> </button>
+                  <button class="removeButton" onclick="removeFromCart({{ item.id }})" type="button" name="button"> <i class="fas fa-times">Remove</i> </button>
                 </td>
               </tr>
 {% endfor %}
             </tbody>
         </table>
 
-        <button class="btn btn-danger w-10 mb-4" onclick=removeAllFromCart() type="button" name="button">Töm kundvagn</button>
         <table class="table w-25 border border-top-0">
           <thead>
               <tr class="text-center font-weight-bold">
@@ -50,17 +48,42 @@
           <tbody>
               <tr>
                   <th>Antal Produkter:</th>
-                  <td>13</td>
+                  <td>{{ cart|length }}</td>
               </tr>
               <tr>
                   <th>Summa:</th>
-                  <td>3116 kr</td>
+                  <td>{{ price }}</td>
               </tr>
           </tbody>
         </table>
+        <form id='placeOrder' class='w-50' method='post' action="index.py.cgi?action=checkout">
+          <input type="hidden" id="order_items" name="items" value="" />
+          <fieldset>
+            <legend>Beställare</legend>
+            {% macro input(title, name, value='', type='text') -%}
+            <p class='cf-desc'></p><p>
+              <label for='form-element-{{name}}'>{{ title }}</label><br>
+              <input id='form-element-{{name}}' type='{{ type }}' class='form-control' name='{{ name }}'/>
+            </p>
+            {% endmacro %}
 
-        <a href="incheckout"><button type="button" class="btn btn-primary w-10">Gå till kassan</button></a>
-
+            {{ input("Namn", "name")}}
+            {{ input("E-post", "email")}}
+            {{ input("Adress", "address")}}
+            {{ input("Postnummer", "zipcode")}}
+            {{ input("Ort", "town")}}
+            <p class='cf-desc'></p><p class='buttonbar'>
+              <span>
+                <input id='form-element-submit' type='submit' class='btn btn-lg btn-primary w-10' name='submit' value='Beställ' />
+                <button class="btn btn-danger btn-lg w-10 " onclick=removeAllFromCart() type="button" name="button">Töm kundvagn</button>
+              </span>&nbsp;
+            {#</p><p class='buttonbar'>
+              <span>#}
+            </p>
+          </fieldset>
+        </form>
+{#        <a href="index.py.cgi?action=checkout"><button type="button" class="btn btn-primary w-10">Beställ</button></a>
+#}
 {% else %}
       <p>Din kundvagn innehåller för tillfället inga produkter.</p>
 {% endif %}

@@ -10,13 +10,9 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta charset="utf-8">
-    <script src="http://www.student.bth.se/~magp16/dbwebb-kurser/databasteknik/htdocs/../vendor/twbs/bootstrap/assets/js/vendor/jquery-slim.min.js" type="text/javascript"></script>
-    <script src="http://www.student.bth.se/~magp16/dbwebb-kurser/databasteknik/htdocs/../vendor/twbs/bootstrap/assets/js/vendor/popper.min.js" type="text/javascript"></script>
-    <script src="http://www.student.bth.se/~magp16/dbwebb-kurser/databasteknik/htdocs/../vendor/twbs/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="http://www.student.bth.se/~magp16/dbwebb-kurser/databasteknik/htdocs/../vendor/components/jquery/jquery.min.js" type="text/javascript"></script>
-    <script src="http://www.student.bth.se/~magp16/dbwebb-kurser/databasteknik/htdocs/js/product.js" type="text/javascript"></script>
-    <script src="http://www.student.bth.se/~magp16/dbwebb-kurser/databasteknik/htdocs/js/cart.js" type="text/javascript"></script>
-
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/js.cookie.js" type="text/javascript"></script>
+    <script src="js/mine.js" type="text/javascript"></script>
   {% endblock %}
 </head>
 <body>
@@ -47,7 +43,7 @@
       </li>
       #}
       <li class='nav-item my-auto' id='cart'><a class='nav-link' href='index.py.cgi?action=cart'
-        <i class='fas fa-shopping-cart'></i> Kundvagn ({{- 0 if cart_size != None else cart_size }})</a></li>        </ul>
+        <i class='fas fa-shopping-cart'></i> Kundvagn (<span id="cart_size">{{- 0 if cart_size != None else cart_size }}</span>)</a></li>        </ul>
     </div>
   {% endblock %}
 </nav>

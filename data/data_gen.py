@@ -43,7 +43,7 @@ customer_columns = ['firstname', 'lastname', 'street', 'city', 'zipcode']
 customer_data = [['Alice',		'Andersson',	'Testgatan 1',	'Ankeborg',		12312],
 		['Oscar',		'Johansson',	'Testgatan 2',	'Ankeborg', 	12312],
 		['Nora',		'Hansen',		'Tramsgatan 1',	'Karlskrona',	32132],
-		['William',		'Johansen',		'Tramsgatan 2',	'Karlksrona',	32132],
+		['William',		'Johansen',		'Tramsgatan 2',	'Karlskrona',	32132],
 		['Lucia',		'Garcia',		'Bakgatan 1',	'Skogen',		23423],
 		['Hugo',		'Fernandez',	'Bakgatan 2',	'Skogen',		23423],
 		['Sofia',		'Rossi',		'Slumpgatan 1',	'Stockholm',	43243],

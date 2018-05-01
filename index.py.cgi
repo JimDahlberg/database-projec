@@ -8,7 +8,7 @@ import os, sys, inspect
 import cgi, cgitb
 
 # Import our utilitiy functions
-from utilities import get_products_filtered, get_products_search, get_products_ids, get_categories, get_subcategories
+from utilities import get_products_filtered, get_products_search, get_products_ids, get_categories, get_subcategories, write_order
 
 print "Content-Type: text/html; charset=UTF-8\n"
 
@@ -97,7 +97,8 @@ def checkout():
             'name': form.getvalue('name'), 'address': form.getvalue('address'),
             'zipcode': form.getvalue('zipcode'), 'town': form.getvalue('town'),
             'items': form.getvalue('items')}
-        #print order
+        write_order(order)
+
         template = env.get_template('checkout.html')
         print template.render(title='BestBuy', address=form.getvalue('address').decode('utf-8'))
     except Exception as e:

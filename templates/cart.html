@@ -57,7 +57,7 @@
               </tr>
           </tbody>
         </table>
-        <form id='placeOrder' class='w-50' method='post' action="index.py.cgi?action=checkout">
+        <form id='placeOrder' class='w-50' method='post' action="index.cgi?action=checkout">
           <input type="hidden" id="order_items" name="items" value="" />
           <fieldset>
             <legend>Beställare</legend>
@@ -83,7 +83,7 @@
             </p>
           </fieldset>
         </form>
-{#        <a href="index.py.cgi?action=checkout"><button type="button" class="btn btn-primary w-10">Beställ</button></a>
+{#        <a href="index.cgi?action=checkout"><button type="button" class="btn btn-primary w-10">Beställ</button></a>
 #}
 {% else %}
       <p>Din kundvagn innehåller för tillfället inga produkter.</p>

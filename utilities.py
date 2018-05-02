@@ -47,23 +47,26 @@ def get_subcategories(gender, category):
 	return result
 
 def write_order(order):
-	df = pd.read_csv('data/Orders.csv')
-	# Get new order ID
-	orderID = df['orderid'].max() + 1
+  df_orders = pd.read_csv('data/Orders.csv')
+  # Get new order ID
+  orderID = df_orders['orderid'].max() + 1
+  # Grab the products id number and the amount of each product
+  item_ids = list(map(int, order['items'].strip('[]').split(',')))
+  items = [{'id': int(x), 'amount': item_ids.count(x)} for x in list(set(item_ids))]
 
-	# Get the name and so on for the customer.
-	#firstname = order['name']
-	#lastname = order['name']
-	firstname, lastname = order['name'].split()
-	email = order['email']
-	address = order['address']
-	zipcode = order['zipcode']
-	town = order['town']
-	# write line by line for each item
-	for item in order['items']:
-		df.iloc[-1] = [	orderID, firstname, lastname, address, town, zipcode, item['id'], item['brand'], 
-						item['type'], item['subtype'], item['color'], item['gender'], item['price'], item['size'], item['amount']]
-	df.to_csv('data/NewOrders.csv')
+  # Get the name and so on for the customer.
+  firstname, lastname = order['name'].split()
+  email = order['email']
+  address = order['address']
+  zipcode = order['zipcode']
+  town = order['town']
+
+  # Write the actual order
+  df_products = pd.read_csv('data/Products.csv')
+  for item in items:
+    product = df_products[df_products['id'] == item['id']].to_dict('records')[0]
+    df_orders.loc[len(df_orders)] = [orderID, firstname, lastname, address, town, zipcode, product['id'], product['brand'], product['type'], product['subtype'], product['color'], product['gender'], product['price'], product['size'], item['amount']]
+  df_orders.to_csv('data/Orders.csv', index=False)
 
 def get_20_most_popular():
 	# Group by article # and sum of amount in Orders.
@@ -80,11 +83,10 @@ def main():
 	#test = get_products_filtered({'color': 'Red', 'brand': 'WESC', 'price': 1599, 'size': 'XS'})
 	#test = get_products_filtered({'type': 'Bags', 'subtype': 'Leather bag'})
 	#test = get_products_search(['Red', 'Jack and Jones'])
-	#write_order('test')
 	#print(get_categories())
 	#print(get_subcategories('Female', 'Bags'))
 	#print(get_20_most_popular())
-	
+	write_order({'town': 'asad', 'name': 'asd asd', 'items': '[2160,2160,2160,2160,2160,2160,2160,2160,2160]', 'zipcode': '123123', 'address': 'asd', 'email': 'asd'})
 
 
 if __name__ == '__main__':

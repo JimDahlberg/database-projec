@@ -15,7 +15,7 @@ def get_products_filtered(categories=None):
 
 def get_products_search(values):
 	df = pd.read_csv('data/Products.csv')
-	df = df[df.isin(values).any(1)]
+	df = df[df['brand'].str.contains('(?i)' + '|'.join(values))]
 	''' SQL '''
 
 	return df.to_dict('records')
@@ -86,8 +86,9 @@ def main():
 	#print(get_categories())
 	#print(get_subcategories('Female', 'Bags'))
 	#print(get_20_most_popular())
-	write_order({'town': 'asad', 'name': 'asd asd', 'items': '[2160,2160,2160,2160,2160,2160,2160,2160,2160]', 'zipcode': '123123', 'address': 'asd', 'email': 'asd'})
-
+	#write_order({'town': 'asad', 'name': 'asd asd', 'items': '[2160,2160,2160,2160,2160,2160,2160,2160,2160]', 'zipcode': '123123', 'address': 'asd', 'email': 'asd'})
+	test = get_products_search(['jack', 'and', 'jones'])
+	print(test)
 
 if __name__ == '__main__':
 	main()

@@ -8,7 +8,7 @@ import os, sys, inspect
 import cgi, cgitb
 
 # Import our utilitiy functions
-from utilities import get_products_filtered, get_products_search, get_products_ids, get_categories, get_subcategories, write_order
+from utilities import get_products_filtered, get_products_search, get_products_ids, get_categories, get_subcategories, write_order, get_20_most_popular
 
 print "Content-Type: text/html; charset=UTF-8\n"
 
@@ -27,7 +27,10 @@ env = Environment(
 
 def products(limits, filters=None):
     template = env.get_template('products.html')
-    data = get_products_filtered(filters)
+    if filters is None:
+        data = get_20_most_popular()
+    else:
+        data = get_products_filtered(filters)
     # Limit the length of the output to 20, otherwise its horrendous.
     if len(data) > 20:
         data = data[:20]
@@ -104,6 +107,13 @@ def checkout():
     except Exception as e:
         print e
 
+def search(words):
+    try:
+        template = env.get_template('products.html')
+        data = get_products_search(words)
+        print template.render(title='BestBuy', products=data)
+    except Exception as e:
+        print e
 
 # Create instance of FieldStorage
 form = cgi.FieldStorage()
@@ -123,7 +133,7 @@ elif action == 'filtered_products':
     filters = {'gender': form.getvalue('gender'), 'type': form.getvalue('category'), 'subtype': form.getvalue('subcategory')}
     products("", filters)
 elif action == 'search': # Not done. Not even started actually :)
-    words = None
+    words = form.getvalue('search').split()
     search("", words)
 else:
     products("")

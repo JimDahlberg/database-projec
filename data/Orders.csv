@@ -2,8 +2,8 @@ orderid,firstname,lastname,street,city,zipcode,id,brand,type,subtype,color,gende
 0,Alice,Andersson,Testgatan 1,Ankeborg,12312,123,Jack and Jones,Shirts,T-shirt,Blue,Male,499,L,1
 0,Alice,Andersson,Testgatan 1,Ankeborg,12312,345,Jack and Jones,Shirts,T-shirt,Black,Male,799,L,2
 0,Alice,Andersson,Testgatan 1,Ankeborg,12312,9878,GANT,Jackets,Winter jacket,Brown,Female,499,M,1
-1,William,Johansen,Tramsgatan 2,Karlksrona,32132,23,Jack and Jones,Shirts,T-shirt,Red,Female,799,XXL,1
-1,William,Johansen,Tramsgatan 2,Karlksrona,32132,55,Jack and Jones,Shirts,T-shirt,Red,Male,799,S,1
+1,William,Johansen,Tramsgatan 2,Karlskrona,32132,23,Jack and Jones,Shirts,T-shirt,Red,Female,799,XXL,1
+1,William,Johansen,Tramsgatan 2,Karlskrona,32132,55,Jack and Jones,Shirts,T-shirt,Red,Male,799,S,1
 2,Olivia,Smith,Skogsgatan 1,Lund,56776,400,Jack and Jones,Shirts,T-shirt,White,Male,199,XL,3
 3,Oliver,Jones,Skogsgatan 2,Lund,56776,12,Jack and Jones,Shirts,T-shirt,Red,Female,499,XS,2
 3,Oliver,Jones,Skogsgatan 2,Lund,56776,888,Jack and Jones,Shirts,Cardigan,Red,Female,999,XS,1

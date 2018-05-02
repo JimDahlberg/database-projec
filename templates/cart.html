@@ -14,7 +14,7 @@
                     <th scope="col" class="border-bottom-0">Namn</th>
                     <th scope="col" class="border-bottom-0">Storlek</th>
                     <th scope="col" class="border-bottom-0">Pris</th>
-                    <th scope="col" class="border-bottom-0">Färg</th>
+                    <th scope="col" class="border-bottom-0">F&auml;rg</th>
                     <th scope="col" class="border-bottom-0">Antal</th>
                     <th scope="col" class="border-bottom-0"></th>
                 </tr>
@@ -43,7 +43,7 @@
         <table class="table w-25 border border-top-0">
           <thead>
               <tr class="text-center font-weight-bold">
-                  <th colspan="2">Beställningsinformation</th>
+                  <th colspan="2">Best&auml;llningsinformation</th>
               </tr>
           </thead>
           <tbody>
@@ -60,7 +60,7 @@
         <form id='placeOrder' class='w-50' method='post' action="index.cgi?action=checkout">
           <input type="hidden" id="order_items" name="items" value="" />
           <fieldset>
-            <legend>Beställare</legend>
+            <legend>Kund</legend>
             {% macro input(title, name, value='', type='text') -%}
             <p class='cf-desc'></p><p>
               <label for='form-element-{{name}}'>{{ title }}</label><br>
@@ -75,18 +75,16 @@
             {{ input("Ort", "town")}}
             <p class='cf-desc'></p><p class='buttonbar'>
               <span>
-                <input id='form-element-submit' type='submit' class='btn btn-lg btn-primary w-10' name='submit' value='Beställ' />
-                <button class="btn btn-danger btn-lg w-10 " onclick=emptyCart() type="button" name="button">Töm kundvagn</button>
+                <input id='form-element-submit' type='submit' class='btn btn-lg btn-primary w-10' name='submit' value='Best&auml;ll' />
+                <button class="btn btn-danger btn-lg w-10 " onclick=emptyCart() type="button" name="button">T&ouml;m kundvagn</button>
               </span>&nbsp;
             {#</p><p class='buttonbar'>
               <span>#}
             </p>
           </fieldset>
         </form>
-{#        <a href="index.cgi?action=checkout"><button type="button" class="btn btn-primary w-10">Beställ</button></a>
-#}
 {% else %}
-      <p>Din kundvagn innehåller för tillfället inga produkter.</p>
+      <p>Din kundvagn inneh&aring;ller f&ouml;r tillf&auml;llet inga produkter.</p>
 {% endif %}
     </div>
   </div>

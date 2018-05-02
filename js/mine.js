@@ -61,6 +61,5 @@ function removeAllFromCart(item) {
 
 function emptyCart() {
   Cookies.remove('cart');
-  $('.cart_size').html(0);
-
+  location.reload(true);
 }

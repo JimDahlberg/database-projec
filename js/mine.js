@@ -60,6 +60,9 @@ function removeAllFromCart(item) {
 }
 
 function emptyCart() {
-  Cookies.remove('cart');
-  location.reload(true);
+  var items = Cookies.getJSON('cart');
+  if (typeof items != 'undefined') {
+    Cookies.remove('cart');
+    location.reload(true);
+  }
 }

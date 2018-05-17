@@ -138,6 +138,6 @@ elif action == 'filtered_products':
     products("", filters)
 elif action == 'search':  # Not done. Not even started actually :)
     words = form.getvalue('search').split()
-    search("", words)
+    search(words)
 else:
     products("")

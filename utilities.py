@@ -5,13 +5,6 @@ import numpy as np
 
 
 def get_products_filtered(categories=None):
-	df = pd.read_csv('data/Products.csv')
-	if categories is not None:
-		for category in categories.keys():
-			df = df[df[category] == categories[category]]
-	''' SQL '''
-
-
 	'''
 	Indata
 	Antingen skickas None in (d.v.s. NULL) via categories och då skall alla produkter hämtas.
@@ -35,14 +28,16 @@ def get_products_filtered(categories=None):
 	{'id': 443, 'brand': 'Cheap Monday', 'type': 'Pants, 'subtype': 'Jeans', 'color': 'Black', 'gender': 'Male', 'price': 449, 'size': 'S'}]
 
 	'''
+	
+	df = pd.read_csv('data/Products.csv')
+	if categories is not None:
+		for category in categories.keys():
+			df = df[df[category] == categories[category]]
+	''' SQL '''
 
 	return df.to_dict('records')
 
 def get_products_search(values):
-	df = pd.read_csv('data/Products.csv')
-	df = df[df['brand'].str.contains('(?i)' + '|'.join(values))]
-	''' SQL '''
-
 	'''
 	Indata
 	En lista (array) utav strängar (enskilda ord) som skall matchas mot märket på alla typer av produkter.
@@ -65,13 +60,13 @@ def get_products_search(values):
 
 	'''
 
+	df = pd.read_csv('data/Products.csv')
+	df = df[df['brand'].str.contains('(?i)' + '|'.join(values))]
+	''' SQL '''
+
 	return df.to_dict('records')
 
 def get_products_ids(ids):
-	df = pd.read_csv('data/Products.csv')
-	df = df.loc[df['id'].isin(ids)]
-	''' SQL '''
-
 	'''
 	Indata
 	En lista (array) utav heltal som representerar artikelnummer på produkter.
@@ -94,15 +89,13 @@ def get_products_ids(ids):
 
 	'''
 
+	df = pd.read_csv('data/Products.csv')
+	df = df.loc[df['id'].isin(ids)]
+	''' SQL '''
+
 	return df.to_dict('records')
 
 def get_categories():
-	df = pd.read_csv('data/Products.csv')
-	genders = df['gender'].unique()
-	types = [df[(df['gender'] == genders[0])]['type'].unique().tolist(), df[(df['gender'] == genders[1])]['type'].unique().tolist()]
-	children = [[{'url': '', 'name': name} for name in types[0]],[{'url': '', 'name': name} for name in types[1]]]
-	''' SQL '''
-
 	'''
 	Returdata
 	En lista innahållande dictionaries med nycklarna title och children.
@@ -118,17 +111,16 @@ def get_categories():
 
 	'''
 
+	df = pd.read_csv('data/Products.csv')
+	genders = df['gender'].unique()
+	types = [df[(df['gender'] == genders[0])]['type'].unique().tolist(), df[(df['gender'] == genders[1])]['type'].unique().tolist()]
+	children = [[{'url': '', 'name': name} for name in types[0]],[{'url': '', 'name': name} for name in types[1]]]
+	''' SQL '''
 
 	result = [{'title' : genders[0], 'children': children[0]}, {'title': genders[1], 'children': children[1]}]
 	return result
 
 def get_subcategories(gender, category):
-	df = pd.read_csv('data/Products.csv')
-	types = df[(df['gender'] == gender) & (df['type'] == category)]['subtype'].unique().tolist()
-	children = [{'url': '', 'name': name} for name in types]
-	result = [{'gender' : gender, 'category': category, 'children': children}]
-	''' SQL '''
-
 	'''
 	Indata
 	Två strängar, gender och category, där gender är könet som det efterfrågas kläder för
@@ -147,51 +139,52 @@ def get_subcategories(gender, category):
 
 	'''
 
+	df = pd.read_csv('data/Products.csv')
+	types = df[(df['gender'] == gender) & (df['type'] == category)]['subtype'].unique().tolist()
+	children = [{'url': '', 'name': name} for name in types]
+	result = [{'gender' : gender, 'category': category, 'children': children}]
+	''' SQL '''
+
 	return result
 
 def write_order(order):
-  print(order)
-  df_orders = pd.read_csv('data/Orders.csv')
-  # Get new order ID
-  orderID = df_orders['orderid'].max() + 1
-  # Grab the products id number and the amount of each product
-  item_ids = list(map(int, order['items'].strip('[]').split(',')))
-  items = [{'id': int(x), 'amount': item_ids.count(x)} for x in list(set(item_ids))]
+	'''
+	Indata
+	order som är en dictionary med nycklarna och dess motsvarande värden:
+	town: Kundens stad
+	name: Kundens namn
+	zipcode: Kundens postkod
+	address: Kundens address
+	email: Kundens email
+	items: En lista av heltal som representerar alla produkters artikelnummer. Så många gånger
+		ett heltal finns i listan, så många artiklar av den typen har kunden köpt. Exempelvis:
+		[1,2,2,3]. I den listan har kunden köpt 1 styck av produkt 1, 2 styck av produkt 2, och 1
+		styck av produkt 3.
+	'''
 
-  # Get the name and so on for the customer.
-  firstname, lastname = order['name'].split()
-  email = order['email']
-  address = order['address']
-  zipcode = order['zipcode']
-  town = order['town']
+	df_orders = pd.read_csv('data/Orders.csv')
+	# Get new order ID
+	orderID = df_orders['orderid'].max() + 1
+	# Grab the products id number and the amount of each product
+	item_ids = list(map(int, order['items'].strip('[]').split(',')))
+	items = [{'id': int(x), 'amount': item_ids.count(x)} for x in list(set(item_ids))]
 
-  # Write the actual order
-  df_products = pd.read_csv('data/Products.csv')
-  for item in items:
-    product = df_products[df_products['id'] == item['id']].to_dict('records')[0]
-    df_orders.loc[len(df_orders)] = [orderID, firstname, lastname, address, town, zipcode, product['id'], product['brand'], product['type'], product['subtype'], product['color'], product['gender'], product['price'], product['size'], item['amount']]
-  df_orders.to_csv('data/Orders.csv', index=False)
+	# Get the name and so on for the customer.
+	firstname, lastname = order['name'].split()
+	email = order['email']
+	address = order['address']
+	zipcode = order['zipcode']
+	town = order['town']
 
-  '''
-  Indata
-  order som är en dictionary med nycklarna och dess motsvarande värden:
-  town: Kundens stad
-  name: Kundens namn
-  zipcode: Kundens postkod
-  address: Kundens address
-  email: Kundens email
-  items: En lista av heltal som representerar alla produkters artikelnummer. Så många gånger
-  	ett heltal finns i listan, så många artiklar av den typen har kunden köpt. Exempelvis:
-  	[1,2,2,3]. I den listan har kunden köpt 1 styck av produkt 1, 2 styck av produkt 2, och 1
-  	styck av produkt 3.
-  '''
+	# Write the actual order
+	df_products = pd.read_csv('data/Products.csv')
+	for item in items:
+		product = df_products[df_products['id'] == item['id']].to_dict('records')[0]
+		df_orders.loc[len(df_orders)] = [orderID, firstname, lastname, address, town, zipcode, product['id'], product['brand'], product['type'], product['subtype'], product['color'], product['gender'], product['price'], product['size'], item['amount']]
+	df_orders.to_csv('data/Orders.csv', index=False)
 
 
 def get_20_most_popular():
-	df = pd.read_csv('data/Orders.csv')
-	top20_ids = df.groupby(['id']).sum().loc[:,['amount']].sort_values('amount', ascending=False).iloc[:20].index.tolist()
-	df = pd.read_csv('data/Products.csv')
-
 	'''
 	Returdata
 	En lista av de 20 produkter som är mest sålda i webshopen. 
@@ -211,6 +204,9 @@ def get_20_most_popular():
 	{'id': 443, 'brand': 'Cheap Monday', 'type': 'Pants, 'subtype': 'Jeans', 'color': 'Black', 'gender': 'Male', 'price': 449, 'size': 'S'}]
 
 	'''
+	df = pd.read_csv('data/Orders.csv')
+	top20_ids = df.groupby(['id']).sum().loc[:,['amount']].sort_values('amount', ascending=False).iloc[:20].index.tolist()
+	df = pd.read_csv('data/Products.csv')
 
 	return df.iloc[top20_ids,:].to_dict('records')
 

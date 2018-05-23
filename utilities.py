@@ -7,20 +7,20 @@ import numpy as np
 def get_products_filtered(categories=None):
 	'''
 	Indata
-	Antingen skickas None in (d.v.s. NULL) via categories och då skall alla produkter hämtas.
-	Om categories inte är None, skickas en dicitonary in med type och subtype.
-	type representerar huvudkategorin, subtype subkategorin.
+	Antingen skickas None in (pythons version av NULL) via categories och daa skall alla produkter haemtas.
+	Om categories inte aer None, skickas en dicitonary in med gender, type och subtype.
+	gender aer plaggets maalgrupps koen, type representerar huvudkategorin, subtype subkategorin.
 
 	Returdata
-	En lista av produkter. Respektive produkts information finns i en dictionary med följande nycklar:
+	En lista av produkter. Respektive produkts information finns i en dictionary med foeljande nycklar:
 	id: Det unika artikelnumret
-	brand: Märket på produkten
+	brand: Maerket paa produkten
 	type: Typ av plagg, huvudkategori.
 	subtype: Typ av plagg, subkategori
-	color: Plaggets färg
-	gender: Kön
-	price: Priset på plagget
-	size: Storleken på plagget
+	color: Plaggets faerg
+	gender: Koen
+	price: Priset paa plagget
+	size: Storleken paa plagget
 
 	Exempelvis:
 	[{'id': 1, 'brand': 'WESC', 'type': 'Shirt, 'subtype': 'T-shirt', 'color': 'Red', 'gender': 'Female', 'price': 299, 'size': 'M'},
@@ -40,18 +40,18 @@ def get_products_filtered(categories=None):
 def get_products_search(values):
 	'''
 	Indata
-	En lista (array) utav strängar (enskilda ord) som skall matchas mot märket på alla typer av produkter.
+	En lista (array) utav straengar (enskilda ord) som skall matchas mot maerket paa alla typer av produkter.
 	
 	Returdata
-	En lista av produkter. Respektive produkts information finns i en dictionary med följande nycklar:
+	En lista av produkter. Respektive produkts information finns i en dictionary med foeljande nycklar:
 	id: Det unika artikelnumret
-	brand: Märket på produkten
+	brand: Maerket paa produkten
 	type: Typ av plagg, huvudkategori.
 	subtype: Typ av plagg, subkategori
-	color: Plaggets färg
-	gender: Kön
-	price: Priset på plagget
-	size: Storleken på plagget
+	color: Plaggets faerg
+	gender: Koen
+	price: Priset paa plagget
+	size: Storleken paa plagget
 
 	Exempelvis:
 	[{'id': 1, 'brand': 'WESC', 'type': 'Shirt, 'subtype': 'T-shirt', 'color': 'Red', 'gender': 'Female', 'price': 299, 'size': 'M'},
@@ -69,18 +69,18 @@ def get_products_search(values):
 def get_products_ids(ids):
 	'''
 	Indata
-	En lista (array) utav heltal som representerar artikelnummer på produkter.
+	En lista (array) utav heltal som representerar artikelnummer paa produkter.
 
 	Returdata
-	En lista av produkter. Respektive produkts information finns i en dictionary med följande nycklar:
+	En lista av produkter. Respektive produkts information finns i en dictionary med foeljande nycklar:
 	id: Det unika artikelnumret
-	brand: Märket på produkten
+	brand: Maerket paa produkten
 	type: Typ av plagg, huvudkategori.
 	subtype: Typ av plagg, subkategori
-	color: Plaggets färg
-	gender: Kön
-	price: Priset på plagget
-	size: Storleken på plagget
+	color: Plaggets faerg
+	gender: Koen
+	price: Priset paa plagget
+	size: Storleken paa plagget
 
 	Exempelvis:
 	[{'id': 1, 'brand': 'WESC', 'type': 'Shirt, 'subtype': 'T-shirt', 'color': 'Red', 'gender': 'Female', 'price': 299, 'size': 'M'},
@@ -98,16 +98,16 @@ def get_products_ids(ids):
 def get_categories():
 	'''
 	Returdata
-	En lista innahållande dictionaries med nycklarna title och children.
-	title representerar könet plaggen är gjorda för (t.ex. Dam och Herr).
-	children skall hålla en lista utav ytterligare dictionary object, där varje dictionary 
-	innehåller nycklarna url och name.
-	url tilldelar ni en tom sträng (d.v.s. '') och nyckeln name tilldelar ni en huvudkategori.
+	En lista innehaallande dictionaries med nycklarna title och children.
+	title representerar koenet plaggen aer gjorda foer (t.ex. Dam och Herr).
+	children skall haalla en lista utav ytterligare dictionary object, daer varje dictionary 
+	innehaaller nycklarna url och name.
+	url tilldelar ni en tom straeng (d.v.s. '') och nyckeln name tilldelar ni en huvudkategori.
 
 
 	Exempelvis:
-	[{'title': 'Dam', 'children': [{'url': '', 'name': 'Tröjor'}, {'url': '', 'name': 'Byxor'}]},
-	{'title': 'Herr', 'children': [{'url': '', 'name': 'Tröjor'}, {'url': '', 'name': 'Väskor'}]}]
+	[{'title': 'Dam', 'children': [{'url': '', 'name': 'Troejor'}, {'url': '', 'name': 'Byxor'}]},
+	{'title': 'Herr', 'children': [{'url': '', 'name': 'Troejor'}, {'url': '', 'name': 'Vaeskor'}]}]
 
 	'''
 
@@ -123,19 +123,19 @@ def get_categories():
 def get_subcategories(gender, category):
 	'''
 	Indata
-	Två strängar, gender och category, där gender är könet som det efterfrågas kläder för
-	och category är huvudkategorin vars subkategorier vi vill hämta.
+	Tvaa straengar, gender och category, daer gender aer koenet som det efterfraagas klaeder foer
+	och category aer huvudkategorin vars subkategorier vi vill haemta.
 
 	Returdata
-	En lista innahållande dictionaries med nycklarna gender, category, och children.
-	gender representerar könet plaggen är gjorda för (t.ex. Dam och Herr).
-	category är den inkommande kategorin vi hämtar subkategorier för
-	children skall hålla en lista utav ytterligare dictionary object, där varje dictionary 
-	innehåller nycklarna url och name.
-	url tilldelar ni en tom sträng (d.v.s. '') och nyckeln name tilldelar ni en subkategori.
+	En lista innahaallande dictionaries med nycklarna gender, category, och children.
+	gender representerar koenet plaggen aer gjorda foer (t.ex. Dam och Herr).
+	category aer den inkommande kategorin vi haemtar subkategorier foer
+	children skall haalla en lista utav ytterligare dictionary object, daer varje dictionary 
+	innehaaller nycklarna url och name.
+	url tilldelar ni en tom straeng (d.v.s. '') och nyckeln name tilldelar ni en subkategori.
 
 	Exempelvis:
-	[{'gender': 'Dam', 'category': 'Tröjor', 'children': [{'url': '', 'name': 'T-shirts'}, {'url': '', 'name': 'Linnen'}]}]
+	[{'gender': 'Dam', 'category': 'Troejor', 'children': [{'url': '', 'name': 'T-shirts'}, {'url': '', 'name': 'Linnen'}]}]
 
 	'''
 
@@ -150,15 +150,15 @@ def get_subcategories(gender, category):
 def write_order(order):
 	'''
 	Indata
-	order som är en dictionary med nycklarna och dess motsvarande värden:
+	order som aer en dictionary med nycklarna och dess motsvarande vaerden:
 	town: Kundens stad
 	name: Kundens namn
 	zipcode: Kundens postkod
 	address: Kundens address
 	email: Kundens email
-	items: En lista av heltal som representerar alla produkters artikelnummer. Så många gånger
-		ett heltal finns i listan, så många artiklar av den typen har kunden köpt. Exempelvis:
-		[1,2,2,3]. I den listan har kunden köpt 1 styck av produkt 1, 2 styck av produkt 2, och 1
+	items: En lista av heltal som representerar alla produkters artikelnummer. Saa maanga gaanger
+		ett heltal finns i listan, saa maanga artiklar av den typen har kunden koept. Exempelvis:
+		[1,2,2,3]. I den listan har kunden koept 1 styck av produkt 1, 2 styck av produkt 2, och 1
 		styck av produkt 3.
 	'''
 
@@ -187,16 +187,16 @@ def write_order(order):
 def get_20_most_popular():
 	'''
 	Returdata
-	En lista av de 20 produkter som är mest sålda i webshopen. 
-	Respektive produkts information finns i en dictionary med följande nycklar:
+	En lista av de 20 produkter som aer mest saalda i webshopen. 
+	Respektive produkts information finns i en dictionary med foeljande nycklar:
 	id: Det unika artikelnumret
-	brand: Märket på produkten
+	brand: Maerket paa produkten
 	type: Typ av plagg, huvudkategori.
 	subtype: Typ av plagg, subkategori
-	color: Plaggets färg
-	gender: Kön
-	price: Priset på plagget
-	size: Storleken på plagget
+	color: Plaggets faerg
+	gender: Koen
+	price: Priset paa plagget
+	size: Storleken paa plagget
 
 	Exempelvis:
 	[{'id': 1, 'brand': 'WESC', 'type': 'Shirt, 'subtype': 'T-shirt', 'color': 'Red', 'gender': 'Female', 'price': 299, 'size': 'M'},

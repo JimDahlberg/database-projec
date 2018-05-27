@@ -216,7 +216,7 @@ def main():
 	#test = get_products_ids([1,2,3])
 	#test = get_categories()
 	#test = get_subcategories('Female', 'Bags')
-	test = print(get_20_most_popular())
+	test = get_20_most_popular()
 	#write_order({'town': 'asad', 'name': 'asd asd', 'items': '[2160,2160,2160,2160,2160,2160,2160,2160,2160]', 'zipcode': '123123', 'address': 'asd', 'email': 'asd'})
 	#test = get_products_search(['jack', 'and', 'jones'])
 	print(test)

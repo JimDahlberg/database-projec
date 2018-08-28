@@ -78,7 +78,7 @@ def cart():
     try:
         if 'HTTP_COOKIE' in environ:
             for cookie in [x.strip() for x in environ['HTTP_COOKIE'].split(';')]:
-                (key, value) = cookie.split('=')
+                (key, value) = cookie.strip('=').split('=')
                 if key == "cart":
                     value = map(int, value.strip("[]").split("%2C"))
                     cart = get_products_ids(value)

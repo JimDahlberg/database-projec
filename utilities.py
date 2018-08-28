@@ -170,7 +170,11 @@ def write_order(order):
 	items = [{'id': int(x), 'amount': item_ids.count(x)} for x in list(set(item_ids))]
 
 	# Get the name and so on for the customer.
-	firstname, lastname = order['name'].split()
+	try:
+		firstname, lastname = order['name'].split()
+	except:
+		firstname = order['name']
+		lastname = ''
 	email = order['email']
 	address = order['address']
 	zipcode = order['zipcode']

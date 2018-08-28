@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 
@@ -14,7 +14,7 @@ from utilities import get_products_filtered, get_products_search, \
     get_products_ids, get_categories, get_subcategories, write_order, \
     get_20_most_popular
 
-print "Content-Type: text/html; charset=UTF-8\n"
+print("Content-Type: text/html; charset=UTF-8\n")
 
 
 cmd_folder = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile(inspect.currentframe()))[0]))
@@ -31,13 +31,13 @@ def products(limits, filters=None):
     if len(data) > 20:
         data = data[:20]
     try:
-        # print template.render(title='BestBuy', products=[
+        # print(template.render(title='BestBuy', products=[
         #    {'brand': 'brand', 'name': 'Name', 'size': 'XXXL', 'price': 2323, 'color': "red"},
         #    {'brand': 'brand', 'name': 'Name', 'size': 'XL', 'price': 2323, 'color': "red"},
-        # ])
-        print template.render(title='BestBuy', products=data)
+        # ]))
+        print(template.render(title='BestBuy', products=data))
     except Exception as e:
-        print e
+        print(e)
 
 
 def categories(limits):
@@ -45,7 +45,7 @@ def categories(limits):
     data = get_categories()
 
     try:
-        # print template.render(title='BestBuy', categories=[
+        # print(template.render(title='BestBuy', categories=[
         #    {'title': 'Heasasdasdasdasdrr', 'children': [
         #        {'url': '', 'name': 'Herr kalsong'},
         #        {'url': '', 'name': 'Herr Troja'}
@@ -54,10 +54,10 @@ def categories(limits):
         #        {'url': '', 'name': 'Dam vaska'},
         #        {'url': '', 'name': 'Dam troja'}
         #    ]}
-        # ])
-        print template.render(title='BestBuy', categories=data)
+        # ]))
+        print(template.render(title='BestBuy', categories=data))
     except Exception as e:
-        print e
+        print(e)
 
 
 # Need to do same thing as above but for subcategories. call the get_subcategories()
@@ -67,9 +67,9 @@ def subcategories(limits, gender, category):
     data = get_subcategories(gender, category)
 
     try:
-        print template.render(title='BestBuy', categories=data)
+        print(template.render(title='BestBuy', categories=data))
     except Exception as e:
-        print e
+        print(e)
 
 
 def cart():
@@ -83,13 +83,13 @@ def cart():
                     value = map(int, value.strip("[]").split("%2C"))
                     cart = get_products_ids(value)
         template = env.get_template('cart.html')
-        print template.render(title='BestBuy (cart)', cart=cart, price=23)
-        """print template.render(title='BestBuy (cart)', cart=[
+        print(template.render(title='BestBuy (cart)', cart=cart, price=23))
+        """print(template.render(title='BestBuy (cart)', cart=[
             {'brand': 'brand', 'name': 'Name', 'size': 'XXXL', 'price': 2323, 'color': "red"},
             {'brand': 'brand', 'name': 'Name', 'size': 'XL', 'price': 2323, 'color': "red"},
-        ])"""
+        ]))"""
     except Exception as e:
-        print e
+        print(e)
 
 
 def checkout():
@@ -104,18 +104,18 @@ def checkout():
         write_order(order)
 
         template = env.get_template('checkout.html')
-        print template.render(title='BestBuy', address=form.getvalue('address').decode('utf-8'))
+        print(template.render(title='BestBuy', address=form.getvalue('address').decode('utf-8')))
     except Exception as e:
-        print e
+        print(e)
 
 
 def search(words):
     try:
         template = env.get_template('products.html')
         data = get_products_search(words)
-        print template.render(title='BestBuy', products=data)
+        print(template.render(title='BestBuy', products=data))
     except Exception as e:
-        print e
+        print(e)
 
 
 # Create instance of FieldStorage

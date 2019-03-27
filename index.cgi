@@ -1,24 +1,25 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import cgitb
+from cgi import FieldStorage
+from codecs import getwriter
+from inspect import currentframe, getfile
+from os import path
+from sys import stdout
 
-import os
-import inspect
-
-# Import modules for CGI handling
-import cgi
 from jinja2 import Environment, FileSystemLoader
 
 # Import our utilitiy functions
-from utilities import get_products_filtered, get_products_search, \
-    get_products_ids, get_categories, get_subcategories, write_order, \
-    get_20_most_popular
+from utilities import (get_20_most_popular, get_categories,
+                       get_products_filtered, get_products_ids,
+                       get_products_search, get_subcategories, write_order)
 
 print("Content-Type: text/html; charset=UTF-8\n")
 
 
-cmd_folder = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile(inspect.currentframe()))[0]))
-env = Environment(loader=FileSystemLoader(os.path.join(cmd_folder, 'templates')))
+cmd_folder = path.realpath(path.abspath(path.split(getfile(currentframe()))[0]))
+env = Environment(loader=FileSystemLoader(path.join(cmd_folder, 'templates')))
 
 
 def products(limits, filters=None):
@@ -119,7 +120,7 @@ def search(words):
 
 
 # Create instance of FieldStorage
-form = cgi.FieldStorage()
+form = FieldStorage()
 action = form.getvalue('action')
 
 if action == 'category':

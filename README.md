@@ -5,7 +5,7 @@ Webshopen BestBuy (ingen sammankoppling till butiken med samma namn i U.S.A finn
 
 På [http://www.student.bth.se/~frer01/databas/](http://www.student.bth.se/~frer01/databas/) återfinner ni nuvarande implementation, där ni kan se hur allting fungerar och testa göra ordrar och så vidare. Källkoden kan ni ladda ner från [git.cse.bth.se/courses/database-project](https://git.cse.bth.se/courses/database-project/tree/master) och spara i er **www** katalog på er studentserver (antingen via [FileZilla](https://dbwebb.se/kunskap/flytta-filer-till-driftsmiljon-med-sftp-och-filezilla), eller J: via [VPN](https://studentportal.bth.se/page/lagra-dokument-och-filer)). När ni laddat upp filerna www katalogen i er student-katalog (J:) kommer ni åt er webshop via [http://www.student.bth.se/~<er_akronym>/](http://www.student.bth.se/~<er_akronym>/), för att testa vidare själva och förstå hur koden fungerar (börja med att ladda upp alla filer från gitlab och se att det fungerar innan ni börjar ändra).
 
-Er uppgift är att skriva om filen [utilities.py](https://git.cse.bth.se/courses/database-project/blob/master/utilities.py) så att ni, istället för att använda [Pandas](https://pandas.pydata.org/pandas-docs/stable/) och csv-filer, använder den databas ni skapat i [Modelleringsövningen till projektet](https://bth.instructure.com/courses/621/assignments/668 "Modelleringsövning till projektet"). Värt att notera, inte all data som finns specificerad i modelleringsövningen finns för nuvarande i aktuellt system. Detta skall ni då även lägga till.
+Er uppgift är att skriva om filen [utilities.py](https://git.cse.bth.se/courses/database-project/blob/master/utilities.py) så att ni, istället för att använda [Pandas](https://pandas.pydata.org/pandas-docs/stable/) och csv-filer, använder den databas ni skapat i [Modelleringsövningen till projektet](https://bth.instructure.com/courses/621/assignments/668 "Modelleringsövning till projektet"). Värt att notera, inte all data som finns specificerad i modelleringsövningen finns för nuvarande i aktuellt system.
 
 Funktionaliteten som finns på hemsidan just nu skall ni återskapa, d.v.s funktionerna:
 ```python
@@ -41,10 +41,10 @@ I projektkatalogen på gitlab finns det en `data` katalog som innehåller produk
 
 Nedan finner ni en simpel exempelkod för att verifiera att ni kan ansluta till en databas, göra queries, och hämta ut data:
 ```python
-import MySQLdb as db  
+import MySQLdb  
 import MySQLdb.cursors
 
-database = db.connect(user='',  # STUDENT_ID
+database = MySQLdb.connect(user='',  # STUDENT_ID
                         passwd='',  # Losenord
                         db='',  # STUDENT_ID  
                         host='blu-ray.student.bth.se',
@@ -59,7 +59,7 @@ c.fetchone()
 
 ## Referenser
 
-*   [https://www.python.org/about/gettingstarted/](https://www.python.org/about/gettingstarted/)
-*   [https://docs.python.org/3/tutorial/index.html](https://docs.python.org/3/tutorial/index.html)
-*   [http://python4java.necaiseweb.org/Fundamentals/TheBasics](http://python4java.necaiseweb.org/Fundamentals/TheBasics)
-*   [http://mysql-python.sourceforge.net/MySQLdb.html#mysqldb](http://mysql-python.sourceforge.net/MySQLdb.html#mysqldb)
+* [Python For Beginners](https://www.python.org/about/gettingstarted/)
+* [The Python Tutorial](https://docs.python.org/3/tutorial/index.html)
+* [Python 4 Java programmers](http://python4java.necaiseweb.org/Fundamentals/TheBasics)
+* [MySQLClient](https://mysqlclient.readthedocs.io/user_guide.html#some-examples)

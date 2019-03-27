@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import cgitb
 import sys
 from cgi import FieldStorage
 from codecs import getwriter
@@ -15,6 +16,7 @@ from utilities import (get_20_most_popular, get_categories,
                        get_products_search, get_subcategories, write_order)
 
 sys.stdout = getwriter("utf-8")(sys.stdout.detach())
+cgitb.enable()  # Enable debugging
 
 print("Content-Type: text/html; charset=UTF-8\n")
 

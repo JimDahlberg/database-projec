@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import cgitb
+import sys
 from cgi import FieldStorage
 from codecs import getwriter
 from inspect import currentframe, getfile
 from os import path
-from sys import stdout
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -15,8 +14,9 @@ from utilities import (get_20_most_popular, get_categories,
                        get_products_filtered, get_products_ids,
                        get_products_search, get_subcategories, write_order)
 
-print("Content-Type: text/html; charset=UTF-8\n")
+sys.stdout = getwriter("utf-8")(sys.stdout.detach())
 
+print("Content-Type: text/html; charset=UTF-8\n")
 
 cmd_folder = path.realpath(path.abspath(path.split(getfile(currentframe()))[0]))
 env = Environment(loader=FileSystemLoader(path.join(cmd_folder, 'templates')))

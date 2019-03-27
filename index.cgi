@@ -20,7 +20,8 @@ cgitb.enable()  # Enable debugging
 
 print("Content-Type: text/html; charset=UTF-8\n")
 
-cmd_folder = path.realpath(path.abspath(path.split(getfile(currentframe()))[0]))
+cmd_folder = path.realpath(
+    path.abspath(path.split(getfile(currentframe()))[0]))
 env = Environment(loader=FileSystemLoader(path.join(cmd_folder, 'templates')))
 
 
@@ -38,7 +39,10 @@ def products(limits, filters=None):
         #    {'brand': 'brand', 'name': 'Name', 'size': 'XXXL', 'price': 2323, 'color': "red"},
         #    {'brand': 'brand', 'name': 'Name', 'size': 'XL', 'price': 2323, 'color': "red"},
         # ]))
-        print(template.render(title='BestBuy', products=data))
+        print(template.render(
+            title='BestBuy',
+            products=data,
+        ))
     except Exception as e:
         print(e)
 
@@ -58,7 +62,10 @@ def categories(limits):
         #        {'url': '', 'name': 'Dam troja'}
         #    ]}
         # ]))
-        print(template.render(title='BestBuy', categories=data))
+        print(template.render(
+            title='BestBuy',
+            categories=data,
+        ))
     except Exception as e:
         print(e)
 
@@ -70,7 +77,10 @@ def subcategories(limits, gender, category):
     data = get_subcategories(gender, category)
 
     try:
-        print(template.render(title='BestBuy', categories=data))
+        print(template.render(
+            title='BestBuy',
+            categories=data,
+        ))
     except Exception as e:
         print(e)
 
@@ -80,13 +90,19 @@ def cart():
     cart = []
     try:
         if 'HTTP_COOKIE' in environ:
-            for cookie in [x.strip() for x in environ['HTTP_COOKIE'].split(';')]:
+            for cookie in [
+                    x.strip() for x in environ['HTTP_COOKIE'].split(';')
+            ]:
                 (key, value) = cookie.strip('=').split('=')
                 if key == "cart":
                     value = map(int, value.strip("[]").split("%2C"))
                     cart = get_products_ids(value)
         template = env.get_template('cart.html')
-        print(template.render(title='BestBuy (cart)', cart=cart, price=23))
+        print(template.render(
+            title='BestBuy (cart)',
+            cart=cart,
+            price=23,
+        ))
         """print(template.render(title='BestBuy (cart)', cart=[
             {'brand': 'brand', 'name': 'Name', 'size': 'XXXL', 'price': 2323, 'color': "red"},
             {'brand': 'brand', 'name': 'Name', 'size': 'XL', 'price': 2323, 'color': "red"},
@@ -97,17 +113,22 @@ def cart():
 
 def checkout():
     try:
-        order = {'email': form.getvalue('email'),
-                 'name': form.getvalue('name'),
-                 'address': form.getvalue('address'),
-                 'zipcode': form.getvalue('zipcode'),
-                 'town': form.getvalue('town'),
-                 'items': form.getvalue('items')
-                 }
+        order = {
+            'email': form.getvalue('email'),
+            'name': form.getvalue('name'),
+            'address': form.getvalue('address'),
+            'zipcode': form.getvalue('zipcode'),
+            'town': form.getvalue('town'),
+            'items': form.getvalue('items')
+        }
         write_order(order)
 
         template = env.get_template('checkout.html')
-        print(template.render(title='BestBuy', address=form.getvalue('address').decode('utf-8')))
+        print(
+            template.render(
+                title='BestBuy',
+                address=form.getvalue('address'),
+            ))
     except Exception as e:
         print(e)
 
@@ -116,7 +137,10 @@ def search(words):
     try:
         template = env.get_template('products.html')
         data = get_products_search(words)
-        print(template.render(title='BestBuy', products=data))
+        print(template.render(
+            title='BestBuy',
+            products=data,
+        ))
     except Exception as e:
         print(e)
 
@@ -136,8 +160,11 @@ elif action == 'subcategory':
     category = form.getvalue('category')
     subcategories("", gender, category)
 elif action == 'filtered_products':
-    filters = {'gender': form.getvalue('gender'), 'type': form.getvalue('category'),
-               'subtype': form.getvalue('subcategory')}
+    filters = {
+        'gender': form.getvalue('gender'),
+        'type': form.getvalue('category'),
+        'subtype': form.getvalue('subcategory')
+    }
     products("", filters)
 elif action == 'search':  # Not done. Not even started actually :)
     words = form.getvalue('search').split()

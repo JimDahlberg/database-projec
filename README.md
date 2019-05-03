@@ -62,4 +62,4 @@ for row in c:
 * [Python For Beginners](https://www.python.org/about/gettingstarted/)
 * [The Python Tutorial](https://docs.python.org/3/tutorial/index.html)
 * [Python 4 Java programmers](http://python4java.necaiseweb.org/Fundamentals/TheBasics)
-* [MySQLClient](https://mysqlclient.readthedocs.io/user_guide.html#some-examples)
+* [MySQL Connector/Python](https://dev.mysql.com/doc/connector-python/en/connector-python-example-connecting.html)

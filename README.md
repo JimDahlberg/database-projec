@@ -41,20 +41,20 @@ I projektkatalogen på gitlab finns det en `data` katalog som innehåller produk
 
 Nedan finner ni en simpel exempelkod för att verifiera att ni kan ansluta till en databas, göra queries, och hämta ut data:
 ```python
-import MySQLdb  
-import MySQLdb.cursors
+import mysql.connector as mysql
 
-database = MySQLdb.connect(user='',  # STUDENT_ID
-                        passwd='',  # Losenord
-                        db='',  # STUDENT_ID  
-                        host='blu-ray.student.bth.se',
-                        cursorclass=MySQLdb.cursors.DictCursor))  
+database = mysql.connect(user='',  # STUDENT_ID
+                         passwd='',  # Losenord
+                         database='',  # STUDENT_ID  
+                         host='blu-ray.student.bth.se')  
+cnx = connection.cursor(dictionary=True)
 
-c = database.cursor()  
-c.execute('''CREATE TABLE Names (name varchar(20))''')  
-c.execute('''INSERT INTO Names VALUES ('test')''')  
-c.execute('''SELECT * FROM Names''')  
-c.fetchone()
+c.execute('''CREATE TABLE Names (name varchar(20))''')
+c.execute('''INSERT INTO Names VALUES ('test')''')
+c.execute('''SELECT * FROM Names''')
+
+for row in c:
+    print("{name}".format(name=row[name]))
 ```
 
 ## Referenser

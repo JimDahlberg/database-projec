@@ -2,7 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import pandas as pd
+from os import path
+from inspect import currentframe, getfile
 
+cmd_folder = path.realpath(
+    path.abspath(path.split(getfile(currentframe()))[0])) + '/'
 
 def get_products_filtered(categories=None):
     """
@@ -32,7 +36,7 @@ def get_products_filtered(categories=None):
      'color': 'Black', 'gender': 'Male', 'price': 449, 'size': 'S'}]
     """
 
-    df = pd.read_csv('data/Products.csv')
+    df = pd.read_csv(cmd_folder + 'data/Products.csv')
     if categories is not None:
         for category in categories.keys():
             df = df[df[category] == categories[category]]
@@ -69,7 +73,7 @@ def get_products_search(values):
     ]
     """
 
-    df = pd.read_csv('data/Products.csv')
+    df = pd.read_csv(cmd_folder + 'data/Products.csv')
     df = df[df['brand'].str.contains('(?i)' + '|'.join(values))]
     ''' SQL '''
 
@@ -102,7 +106,7 @@ def get_products_ids(ids):
      'color': 'Black', 'gender': 'Male', 'price': 449, 'size': 'S'}]
     """
 
-    df = pd.read_csv('data/Products.csv')
+    df = pd.read_csv(cmd_folder + 'data/Products.csv')
     df = df.loc[df['id'].isin(ids)]
     ''' SQL '''
 
@@ -126,7 +130,7 @@ def get_categories():
                                    {'url': '', 'name': 'Väskor'}]}]
     """
 
-    df = pd.read_csv('data/Products.csv')
+    df = pd.read_csv(cmd_folder + 'data/Products.csv')
     genders = df['gender'].unique()
     types = [
         df[(df['gender'] == genders[0])]['type'].unique().tolist(),
@@ -172,7 +176,7 @@ def get_subcategories(gender, category):
         [{'url': '', 'name': 'T-shirts'}, {'url': '', 'name': 'Linnen'}]}]
     """
 
-    df = pd.read_csv('data/Products.csv')
+    df = pd.read_csv(cmd_folder + 'data/Products.csv')
     types = df[(df['gender'] == gender)
                & (df['type'] == category)]['subtype'].unique().tolist()
     children = [{'url': '', 'name': name} for name in types]
@@ -198,7 +202,7 @@ def write_order(order):
         produkt 3.
     """
 
-    df_orders = pd.read_csv('data/Orders.csv')
+    df_orders = pd.read_csv(cmd_folder + 'data/Orders.csv')
     # Get new order ID
     orderID = df_orders['orderid'].max() + 1
     # Grab the products id number and the amount of each product
@@ -220,7 +224,7 @@ def write_order(order):
     town = order['town']
 
     # Write the actual order
-    df_products = pd.read_csv('data/Products.csv')
+    df_products = pd.read_csv(cmd_folder + 'data/Products.csv')
     for item in items:
         product = df_products[df_products['id'] == item['id']].to_dict(
             'records')[0]
@@ -256,10 +260,10 @@ def get_20_most_popular():
      'size': 'S'}]
     """
 
-    df = pd.read_csv('data/Orders.csv')
+    df = pd.read_csv(cmd_folder + 'data/Orders.csv')
     top20_ids = df.groupby(['id']).sum().loc[:, ['amount']].sort_values(
         'amount', ascending=False).iloc[:20].index.tolist()
-    df = pd.read_csv('data/Products.csv')
+    df = pd.read_csv(cmd_folder + 'data/Products.csv')
 
     return df.iloc[top20_ids, :].to_dict('records')
 

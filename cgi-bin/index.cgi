@@ -23,6 +23,7 @@ print("Content-Type: text/html; charset=UTF-8\n")
 cmd_folder = path.realpath(
     path.abspath(path.split(getfile(currentframe()))[0]))
 env = Environment(loader=FileSystemLoader(path.join(cmd_folder, 'templates')))
+env.globals = {'path': '../' if 'cgi-bin' in cmd_folder else ''}
 
 
 def products(limits, filters=None):

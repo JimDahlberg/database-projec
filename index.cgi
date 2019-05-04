@@ -90,13 +90,16 @@ def cart():
     cart = []
     try:
         if 'HTTP_COOKIE' in environ:
-            for cookie in [
-                    x.strip() for x in environ['HTTP_COOKIE'].split(';')
-            ]:
-                (key, value) = cookie.strip('=').split('=')
-                if key == "cart":
-                    value = map(int, value.strip("[]").split("%2C"))
-                    cart = get_products_ids(value)
+            cart_data = {
+                i[0]: '='.join(i[1:])
+                for i in [
+                    cookie.split('=')
+                    for cookie in environ['HTTP_COOKIE'].split('; ')
+                ]
+            }.get('cart')
+            if cart_data:
+                value = map(int, cart_data.strip("[]").split("%2C"))
+                cart = get_products_ids(value)
         template = env.get_template('cart.html')
         print(template.render(
             title='BestBuy (cart)',

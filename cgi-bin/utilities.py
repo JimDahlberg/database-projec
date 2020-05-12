@@ -234,7 +234,7 @@ def write_order(order):
             product['subtype'], product['color'], product['gender'],
             product['price'], product['size'], item['amount']
         ]
-    df_orders.to_csv('data/Orders.csv', index=False, encoding='utf-8')
+    df_orders.to_csv(cmd_folder + 'data/Orders.csv', index=False, encoding='utf-8')
 
 
 def get_20_most_popular():
